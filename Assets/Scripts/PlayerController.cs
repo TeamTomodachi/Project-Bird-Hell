@@ -31,8 +31,10 @@ public class PlayerController : MonoBehaviour {
         m_rigidbody2D.transform.position += (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * PLAYER_MOVEMENT_SPEED;
 
         // Flip the sprite to face the direction of movement 
-        if (horizontalMovement > 0.001f) { m_spriteRenderer.flipX = false; } // Flip Right
-		else if (horizontalMovement <= -0.001f) { m_spriteRenderer.flipX = true; } // Flip Left
+        var scale = transform.localScale;
+        if (horizontalMovement > 0.001f) { scale.x = 1; } // Flip Right
+		else if (horizontalMovement <= -0.001f) { scale.x = -1; } // Flip Left
+        transform.localScale = scale;
 
         // Preform Jump
 		if (Input.GetButtonDown(Player.ControllerPrefix+"Jump"))
