@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
 
         // Preform Jump
 		if (Input.GetButtonDown(Player.ControllerPrefix+"Jump"))
-
         {
 			//Debug.Log("Jump");
 			var vel = m_rigidbody2D.velocity;
