@@ -28,19 +28,20 @@ public class PlayerController : MonoBehaviour {
 	private void FixedUpdate()
 	{
 		float horizontalMovement = Input.GetAxis(Player.ControllerPrefix + "Horizontal");
+        m_rigidbody2D.transform.position += (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * PLAYER_MOVEMENT_SPEED;
+
         // Flip the sprite to face the direction of movement 
         if (horizontalMovement > 0.001f) { m_spriteRenderer.flipX = false; } // Flip Right
-        else if (horizontalMovement <= -0.001f) { m_spriteRenderer.flipX = true; } // Flip Left
+		else if (horizontalMovement <= -0.001f) { m_spriteRenderer.flipX = true; } // Flip Left
 
+        // Preform Jump
 		if (Input.GetButtonDown(Player.ControllerPrefix+"Jump"))
-		{
-			Debug.Log("Jump");
+
+        {
+			//Debug.Log("Jump");
 			var vel = m_rigidbody2D.velocity;
 			vel.y = PLAYER_JUMP_SPEED;
 			m_rigidbody2D.velocity = vel;
 		}
-
-		//m_characterController.Move(new Vector3(horizontalMovement, 0));
-		m_rigidbody2D.transform.position += (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * PLAYER_MOVEMENT_SPEED;
 	}
 }
