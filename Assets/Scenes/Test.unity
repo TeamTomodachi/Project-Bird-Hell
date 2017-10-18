@@ -151,10 +151,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4140084366603472, guid: 8d4b73f17b2e713408f39c27af05edea, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d4b73f17b2e713408f39c27af05edea, type: 2}
   m_IsPrefabParent: 0
@@ -249,7 +245,7 @@ GameObject:
   - component: {fileID: 1887624604}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -292,3 +288,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2064773602 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1078589736936472, guid: 8d4b73f17b2e713408f39c27af05edea,
+    type: 2}
+  m_PrefabInternal: {fileID: 606204489}
+--- !u!114 &2064773603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2064773602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61f4f94f0146747bc14b4a8e21906d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentStamina: 100
