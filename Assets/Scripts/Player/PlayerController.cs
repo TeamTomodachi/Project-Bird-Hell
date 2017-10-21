@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Preform Jump
-		if (Input.GetButtonDown(Player.ControllerPrefix + "Jump") &&
+		if (Input.GetButtonDown(Player.JoystickInputManagerPrefix + "Jump") &&
 			CanJump)
 		{
 			//Debug.Log("Jump");
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 	// Called once per Physics Update
 	private void FixedUpdate()
 	{
-		float horizontalMovement = Input.GetAxis(Player.ControllerPrefix + "Horizontal");
+		float horizontalMovement = Input.GetAxis(Player.JoystickInputManagerPrefix + "Horizontal");
 		m_rigidbody2D.transform.position += (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * PLAYER_MOVEMENT_SPEED;
 
 		// Flip the sprite to face the direction of movement 

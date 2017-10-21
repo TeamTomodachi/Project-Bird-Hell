@@ -7,7 +7,8 @@ public class PlayerInfo
 {
     [SerializeField]
     public int ID;
-    public string ControllerPrefix { get { return "P" + ID + "_"; } }
+    public string JoystickInputManagerPrefix { get { return "P" + ID + "_"; } }
+    public string JoystickButtonPrefix { get { return "joystick " + ID + " button "; } }
 
     public PlayerInfo() : this(1) { }
     public PlayerInfo(int id)

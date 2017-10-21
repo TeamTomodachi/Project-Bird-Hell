@@ -218,6 +218,11 @@ Prefab:
       propertyPath: PlayerInfo.ID
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114239105309158406, guid: 10c9f7c591a809b40ab847724dec7dc7,
+        type: 2}
+      propertyPath: Lobby
+      value: 
+      objectReference: {fileID: 520527345}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10c9f7c591a809b40ab847724dec7dc7, type: 2}
   m_IsPrefabParent: 0
@@ -323,7 +328,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 405928687}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -449,6 +454,8 @@ MonoBehaviour:
   Player2Panel: {fileID: 1621607158}
   Player3Panel: {fileID: 8879847}
   Player4Panel: {fileID: 1304106929}
+  CursorPrefab: {fileID: 114847113949895914, guid: 66df40de2b2bf2c4ba711812c847098c,
+    type: 2}
 --- !u!1 &748370947
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +716,11 @@ Prefab:
       propertyPath: PlayerInfo.ID
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114239105309158406, guid: 10c9f7c591a809b40ab847724dec7dc7,
+        type: 2}
+      propertyPath: Lobby
+      value: 
+      objectReference: {fileID: 520527345}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10c9f7c591a809b40ab847724dec7dc7, type: 2}
   m_IsPrefabParent: 0
@@ -923,6 +935,11 @@ Prefab:
       propertyPath: PlayerInfo.ID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114239105309158406, guid: 10c9f7c591a809b40ab847724dec7dc7,
+        type: 2}
+      propertyPath: Lobby
+      value: 
+      objectReference: {fileID: 520527345}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10c9f7c591a809b40ab847724dec7dc7, type: 2}
   m_IsPrefabParent: 0
