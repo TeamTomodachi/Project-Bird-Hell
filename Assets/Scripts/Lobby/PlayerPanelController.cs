@@ -12,6 +12,9 @@ public class PlayerPanelController : MonoBehaviour
 	private GameObject StartToJoinPanel;
 	private GameObject JoinedGamePanel;
 
+	[HideInInspector]
+	public bool IsReady = true;
+
 	public bool HasJoinedGame
 	{
 		get
@@ -31,6 +34,7 @@ public class PlayerPanelController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		// Start Button
 #if UNITY_EDITOR_WIN
 		if (Input.GetKeyDown(PlayerInfo.JoystickButtonPrefix + 7))
 #elif UNITY_EDITOR_OSX
@@ -42,6 +46,7 @@ public class PlayerPanelController : MonoBehaviour
 			JoinGame();
 		}
 
+		// Back Button
 #if UNITY_EDITOR_WIN
 		if (Input.GetKeyDown(PlayerInfo.JoystickButtonPrefix + 6))
 #elif UNITY_EDITOR_OSX
@@ -51,6 +56,18 @@ public class PlayerPanelController : MonoBehaviour
 #endif
 		{
 			LeaveGame();
+		}
+
+		// X Button
+#if UNITY_EDITOR_WIN
+		if (Input.GetKeyDown(PlayerInfo.JoystickButtonPrefix + 2))
+#elif UNITY_EDITOR_OSX
+		if (Input.GetKeyDown(PlayerInfo.JoystickButtonPrefix + 18))
+#else
+		if (false)
+#endif
+		{
+			ToggleReady();
 		}
 	}
 
@@ -72,7 +89,16 @@ public class PlayerPanelController : MonoBehaviour
 		StartToJoinPanel.SetActive(true);
 		JoinedGamePanel.SetActive(false);
 
+		// Unready
+		IsReady = false;
+
 		// Destroy the Cursor
 		Destroy(Cursor.gameObject);
+	}
+
+	void ToggleReady()
+	{
+		if (!HasJoinedGame) return;
+		IsReady = !IsReady;
 	}
 }

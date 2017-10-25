@@ -5,10 +5,8 @@ using UnityEngine;
 public class LobbyController : MonoBehaviour {
 
 	// Player Controllers
-	public PlayerPanelController Player1Panel;
-	public PlayerPanelController Player2Panel;
-	public PlayerPanelController Player3Panel;
-	public PlayerPanelController Player4Panel;
+	public List<PlayerPanelController> PlayerPanels = new List<PlayerPanelController>();
+
 	// Assets
 	public CursorController CursorPrefab;
 
@@ -18,6 +16,33 @@ public class LobbyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		// Gather all the joined players
+		List<PlayerPanelController> joinedPlayers = new List<PlayerPanelController>();
+		foreach (var panel in PlayerPanels)
+		{
+			if (panel.HasJoinedGame)
+				joinedPlayers.Add(panel);
+		}
+
+		// Check to make sure they are all ready
+		bool readyToStart = true;
+		if (joinedPlayers.Count >= 2)
+		{
+			foreach (var panel in joinedPlayers)
+			{
+				if (!panel.IsReady)
+				{
+					readyToStart = false;
+					break;
+				}
+			}
+		}
+		else { readyToStart = false; }
+
+		// If we are ready to start, begin/check the countdown timer
+		if (readyToStart)
+		{
+
+		}
 	}
 }
