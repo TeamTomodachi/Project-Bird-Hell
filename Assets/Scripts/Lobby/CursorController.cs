@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CursorController : MonoBehaviour {
-	public const float CURSOR_MOVEMENT_SPEED = 200.0f;
+	[HideInInspector]
+	public const float CURSOR_MOVEMENT_SPEED = 550.0f;
 
 	public PlayerPanelController PlayerPanel;
 	public Image CursorImage;
-    public RectTransform parentTransform;
+	public RectTransform parentTransform;
 
 	// Use this for initialization
 	void Start () {
-        parentTransform = transform.parent as RectTransform;
+		parentTransform = transform.parent as RectTransform;
 	}
 	
 	// Update is called once per frame
@@ -21,22 +22,22 @@ public class CursorController : MonoBehaviour {
 		float verticalMovement = Input.GetAxis(PlayerPanel.PlayerInfo.JoystickInputManagerPrefix + "Vertical");
 		var newPosition = transform.position + (new Vector3(horizontalMovement, verticalMovement) * Time.fixedDeltaTime) * CURSOR_MOVEMENT_SPEED;
 
-        //Debug.Log(parentTransform.rect.ToString());
+		//Debug.Log(parentTransform.rect.ToString());
 
-        var properXMin = parentTransform.rect.xMin + (parentTransform.rect.width / 2);
-        var properXMax = parentTransform.rect.xMax + (parentTransform.rect.width / 2);
-        if (newPosition.x > properXMax)
-            newPosition.x = properXMax;
-        else if (newPosition.x < properXMin)
-            newPosition.x = properXMin;
+		var properXMin = parentTransform.rect.xMin + (parentTransform.rect.width / 2);
+		var properXMax = parentTransform.rect.xMax + (parentTransform.rect.width / 2);
+		if (newPosition.x > properXMax)
+			newPosition.x = properXMax;
+		else if (newPosition.x < properXMin)
+			newPosition.x = properXMin;
 
-        var properYMin = parentTransform.rect.yMin + (parentTransform.rect.height / 2);
-        var properYMax = parentTransform.rect.yMax + (parentTransform.rect.height / 2);
-        if (newPosition.y > properYMax)
-            newPosition.y = properYMax;
-        else if (newPosition.y < properYMin)
-            newPosition.y = properYMin;
+		var properYMin = parentTransform.rect.yMin + (parentTransform.rect.height / 2);
+		var properYMax = parentTransform.rect.yMax + (parentTransform.rect.height / 2);
+		if (newPosition.y > properYMax)
+			newPosition.y = properYMax;
+		else if (newPosition.y < properYMin)
+			newPosition.y = properYMin;
 
-        transform.position = newPosition;
+		transform.position = newPosition;
 	}
 }
