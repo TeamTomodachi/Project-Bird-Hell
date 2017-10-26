@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CursorController : MonoBehaviour {
-	[HideInInspector]
-	public const float CURSOR_MOVEMENT_SPEED = 550.0f;
+	public float CursorMovementSpeed = 550.0f;
 
 	public PlayerPanelController PlayerPanel;
 	public Image CursorImage;
@@ -20,7 +19,7 @@ public class CursorController : MonoBehaviour {
 	void Update () {
 		float horizontalMovement = Input.GetAxis(PlayerPanel.PlayerInfo.JoystickInputManagerPrefix + "Horizontal");
 		float verticalMovement = Input.GetAxis(PlayerPanel.PlayerInfo.JoystickInputManagerPrefix + "Vertical");
-		var newPosition = transform.position + (new Vector3(horizontalMovement, verticalMovement) * Time.fixedDeltaTime) * CURSOR_MOVEMENT_SPEED;
+		var newPosition = transform.position + (new Vector3(horizontalMovement, verticalMovement) * Time.fixedDeltaTime) * CursorMovementSpeed;
 
 		//Debug.Log(parentTransform.rect.ToString());
 
