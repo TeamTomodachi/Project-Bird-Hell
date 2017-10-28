@@ -13,7 +13,7 @@ public class PlayerPanelController : MonoBehaviour
 	private GameObject JoinedGamePanel;
 
 	[HideInInspector]
-	public bool IsReady = true;
+	public bool IsReady = false;
 
 	public bool HasJoinedGame
 	{
@@ -76,6 +76,9 @@ public class PlayerPanelController : MonoBehaviour
 		if (HasJoinedGame) return;
 		StartToJoinPanel.SetActive(false);
 		JoinedGamePanel.SetActive(true);
+
+		// Unready
+		IsReady = false;
 
 		// Create the Cursor
 		Cursor = Instantiate<CursorController>(Lobby.CursorPrefab, transform.position, transform.rotation);
