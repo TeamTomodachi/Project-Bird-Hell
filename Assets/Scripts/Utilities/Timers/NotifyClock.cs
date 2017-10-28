@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-
-public class NotifyClock : MonoBehaviour, IClockTimer {
+public class NotifyClock : MonoBehaviour, IClockTimer
+{
+    public Text UILabel;
 
     public event TimeEventHandler Tick;
 
@@ -21,7 +23,15 @@ public class NotifyClock : MonoBehaviour, IClockTimer {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        // Update the Label
+        if (UILabel != null)
+        {
+            UILabel.text = CurrentTime.ToString();
+        }
+
+        // Check if the timer is started
         if (ClockTimerState != TimeState.Started) return;
 
         // Update the Clock
