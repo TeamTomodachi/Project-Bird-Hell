@@ -4,13 +4,18 @@ using System.Collections.Generic;
 
 public interface IClockTimer
 {
-    event TimeEventHandler Tick;
+    event TimeEventHandler OnTick;
+    event TimeEventHandler OnStart;
+    event TimeEventHandler OnPause;
+    event TimeEventHandler OnStop;
 
     TimeState ClockTimerState { get; }
+    TimeSpan CurrentTimeSpan { get; }
     float CurrentTime { get; }
     float TickLength { get; set; }
     float LastTick { get; }
     float NextTick { get; }
+
 
     void StartClockTimer();
     void PauseClockTimer();
@@ -19,6 +24,7 @@ public interface IClockTimer
 
 public enum TimeState
 {
+    None,
     Stopped,
     Started,
     Paused,

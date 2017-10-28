@@ -1,16 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour, IClockTimer
 {
-    public Text UILabel;
-
-    public event TimeEventHandler Tick;
-    public event TimeEventHandler Completed;
+    public event TimeEventHandler OnCompleted;
+    public event TimeEventHandler OnTick;
+    public event TimeEventHandler OnStart;
+    public event TimeEventHandler OnPause;
+    public event TimeEventHandler OnStop;
 
     public TimeState ClockTimerState { get; private set; }
+    public TimeSpan CurrentTimeSpan { get { return TimeSpan.FromSeconds(CurrentTime); } }
     public float CurrentTime { get; set; }
     public float TickLength { get; set; }
     public float LastTick { get; set; }
@@ -22,18 +25,14 @@ public class CountdownTimer : MonoBehaviour, IClockTimer
     {
         TickLength = 1.0f;
         StartTime = 10.0f;
-        StopClockTimer();
+        ClockTimerState = TimeState.None;
+        CurrentTime = StartTime;
+        LastTick = StartTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Update the Label
-        if (UILabel != null)
-        {
-            UILabel.text = CurrentTime.ToString();
-        }
-
         // Check if the timer is started
         if (ClockTimerState != TimeState.Started) return;
 
@@ -44,8 +43,8 @@ public class CountdownTimer : MonoBehaviour, IClockTimer
         if (CurrentTime <= NextTick)
         {
             LastTick = NextTick;
-            if (Tick != null)
-                Tick(this, new TimeEventArgs(CurrentTime));
+            if (OnTick != null)
+                OnTick(this, new TimeEventArgs(CurrentTime));
         }
 
         // Notify Completion
@@ -53,25 +52,41 @@ public class CountdownTimer : MonoBehaviour, IClockTimer
         {
             ClockTimerState = TimeState.Completed;
             CurrentTime = 0.0f;
-            if (Completed != null)
-                Completed(this, new TimeEventArgs(CurrentTime));
+            if (OnCompleted != null)
+                OnCompleted(this, new TimeEventArgs(CurrentTime));
         }
     }
 
     public void StopClockTimer()
     {
+        if (ClockTimerState == TimeState.Stopped) return;
+
         ClockTimerState = TimeState.Stopped;
         CurrentTime = StartTime;
         LastTick = StartTime;
+
+        if (OnStop != null)
+            OnStop(this, new TimeEventArgs(CurrentTime, true));
     }
 
     public void StartClockTimer()
     {
+        if (ClockTimerState == TimeState.None) return;
+        if (ClockTimerState == TimeState.Started) return;
+        if (ClockTimerState == TimeState.Completed) return;
+
         ClockTimerState = TimeState.Started;
+        if (OnStart != null)
+            OnStart(this, new TimeEventArgs(CurrentTime, true));
     }
 
     public void PauseClockTimer()
     {
+        if (ClockTimerState != TimeState.Started) return;
+
+
         ClockTimerState = TimeState.Paused;
+        if (OnPause != null)
+            OnPause(this, new TimeEventArgs(CurrentTime, true));
     }
 }
