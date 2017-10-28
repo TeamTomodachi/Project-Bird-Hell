@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
@@ -113,6 +114,8 @@ public class LobbyController : MonoBehaviour
         {
             TimerUIText.text = "";
         }
+
         // Begin loading the map
+        SceneManager.LoadScene("Test");
     }
 }
