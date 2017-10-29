@@ -83,7 +83,7 @@ public class LobbyController : MonoBehaviour
     private void StartTimer_OnStop(IClockTimer sender, TimeEventArgs e)
     {
         Debug.Log("Timer Started");
-        var timer = sender as CountdownTimer;
+        //var timer = sender as CountdownTimer;
         if (TimerUIText != null)
         {
             TimerUIText.text = "";
@@ -109,10 +109,18 @@ public class LobbyController : MonoBehaviour
     private void StartTimer_Completed(IClockTimer sender, TimeEventArgs e)
     {
         Debug.Log("Timer Complete");
-        var timer = sender as CountdownTimer;
+        //var timer = sender as CountdownTimer;
         if (TimerUIText != null)
         {
             TimerUIText.text = "";
+        }
+
+        // Save the Players to static cache for recreation ingame
+        PlayerInfo.PlayersInGame = new List<PlayerInfo>();
+        foreach (var panel in PlayerPanels)
+        {
+            if (panel.HasJoinedGame)
+                PlayerInfo.PlayersInGame.Add(panel.PlayerInfo);
         }
 
         // Begin loading the map

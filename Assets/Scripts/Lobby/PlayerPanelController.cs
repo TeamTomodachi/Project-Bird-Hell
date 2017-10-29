@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPanelController : MonoBehaviour
 {
 	public PlayerInfo PlayerInfo = new PlayerInfo();
-	public Color CursorColor;
+	//public Color CursorColor;
 
 	private LobbyController Lobby;
 	private CursorController Cursor;
@@ -71,7 +71,7 @@ public class PlayerPanelController : MonoBehaviour
 		}
 	}
 
-	void JoinGame()
+	public void JoinGame()
 	{
 		if (HasJoinedGame) return;
 		StartToJoinPanel.SetActive(false);
@@ -84,9 +84,9 @@ public class PlayerPanelController : MonoBehaviour
 		Cursor = Instantiate<CursorController>(Lobby.CursorPrefab, transform.position, transform.rotation);
 		Cursor.transform.SetParent(Lobby.transform);
 		Cursor.PlayerPanel = this;
-		Cursor.CursorImage.color = CursorColor;
+		Cursor.CursorImage.color = PlayerInfo.EmbellishmentColor;
 	}
-	void LeaveGame()
+	public void LeaveGame()
 	{
 		if (!HasJoinedGame) return;
 		StartToJoinPanel.SetActive(true);
@@ -99,7 +99,7 @@ public class PlayerPanelController : MonoBehaviour
 		Destroy(Cursor.gameObject);
 	}
 
-	void ToggleReady()
+	public void ToggleReady()
 	{
 		if (!HasJoinedGame) return;
 		IsReady = !IsReady;

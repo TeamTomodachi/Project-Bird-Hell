@@ -122,7 +122,7 @@ Prefab:
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 145.25
+      value: 132.875
       objectReference: {fileID: 0}
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 259715079}
   - component: {fileID: 259715078}
   m_Layer: 5
-  m_Name: Start Timer
+  m_Name: Game Start Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227d47686a9065c4c836786dae03adca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UILabel: {fileID: 259715079}
   StartTime: 3
 --- !u!114 &259715079
 MonoBehaviour:
@@ -544,6 +543,7 @@ MonoBehaviour:
   - {fileID: 8879847}
   - {fileID: 1304106929}
   StartTimer: {fileID: 259715078}
+  TimerUIText: {fileID: 259715079}
   CursorPrefab: {fileID: 114847113949895914, guid: 66df40de2b2bf2c4ba711812c847098c,
     type: 2}
 --- !u!1 &748370947
@@ -711,7 +711,7 @@ Prefab:
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 435.75
+      value: 398.625
       objectReference: {fileID: 0}
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
@@ -908,7 +908,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1414293169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 581, y: 227.5, z: 0}
+  m_LocalPosition: {x: 531.5, y: 223.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 520527342}
@@ -930,7 +930,7 @@ Prefab:
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -145.25
+      value: -132.875
       objectReference: {fileID: 0}
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
@@ -1031,6 +1031,11 @@ Prefab:
       propertyPath: Lobby
       value: 
       objectReference: {fileID: 520527345}
+    - target: {fileID: 114239105309158406, guid: 10c9f7c591a809b40ab847724dec7dc7,
+        type: 2}
+      propertyPath: PlayerInfo.EmbelishmentColor.a
+      value: 0.5882353
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10c9f7c591a809b40ab847724dec7dc7, type: 2}
   m_IsPrefabParent: 0
@@ -1244,7 +1249,7 @@ Prefab:
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -435.75
+      value: -398.625
       objectReference: {fileID: 0}
     - target: {fileID: 224656463398647888, guid: 10c9f7c591a809b40ab847724dec7dc7,
         type: 2}
