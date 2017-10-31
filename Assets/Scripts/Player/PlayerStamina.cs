@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStamina : MonoBehaviour {
     public const float MIN_STAMINA = 0.0f;
     public const float MAX_STAMINA = 100.0f;
-    public const float STAMINA_INCREASE_RATE = 10.0f;
+    public float StaminaIncreaseRate = 10.0f;
     public float CurrentStamina = MAX_STAMINA;
 
     public void IncreaseStamina(float amount)
@@ -23,7 +23,7 @@ public class PlayerStamina : MonoBehaviour {
     {
         if (OnFloor)
         {
-            IncreaseStamina(STAMINA_INCREASE_RATE * Time.deltaTime);
+            IncreaseStamina(StaminaIncreaseRate * Time.deltaTime);
         }
     }
 
