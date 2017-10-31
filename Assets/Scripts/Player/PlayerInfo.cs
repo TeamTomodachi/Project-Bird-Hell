@@ -13,6 +13,9 @@ public class PlayerInfo
     public string JoystickButtonPrefix { get { return "joystick " + ID + " button "; } }
 
     [SerializeField]
+    public int BirdID;
+
+    [SerializeField]
     public Color EmbellishmentColor;
 
     public PlayerInfo() : this(1) { }
