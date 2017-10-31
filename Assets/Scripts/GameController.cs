@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(NotifyClock))]
 public class GameController : MonoBehaviour
 {
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
