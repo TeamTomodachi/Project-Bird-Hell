@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CountdownTimer : MonoBehaviour, IClockTimer
+public class CountdownTimer : ExposableMonoBehaviour, IClockTimer
 {
     public event TimeEventHandler OnCompleted;
     public event TimeEventHandler OnTick;
@@ -12,10 +12,13 @@ public class CountdownTimer : MonoBehaviour, IClockTimer
     public event TimeEventHandler OnPause;
     public event TimeEventHandler OnStop;
 
+    [HideInInspector, SerializeField] private float m_currentTime = 0.0f;
+    [HideInInspector, SerializeField] private float m_tickLength = 0.0f;
+
     public TimeState ClockTimerState { get; private set; }
     public TimeSpan CurrentTimeSpan { get { return TimeSpan.FromSeconds(CurrentTime); } }
-    public float CurrentTime { get; set; }
-    public float TickLength { get; set; }
+    [ExposeProperty] public float CurrentTime { get { return m_currentTime; } set { m_currentTime = value; } }
+    [ExposeProperty] public float TickLength { get { return m_tickLength; } set { m_tickLength = value; } }
     public float LastTick { get; set; }
     public float NextTick { get { return LastTick - TickLength; } }
 
