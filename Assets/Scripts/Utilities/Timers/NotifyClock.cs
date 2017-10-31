@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class NotifyClock : ExposableMonoBehaviour, IClockTimer
+{
+    public event TimeEventHandler OnTick;
+    public event TimeEventHandler OnStart;
+    public event TimeEventHandler OnPause;
+    public event TimeEventHandler OnStop;
+
+    [HideInInspector, SerializeField] private float m_currentTime = 0.0f;
+    [HideInInspector, SerializeField] private float m_tickLength = 0.0f;
+
+    public TimeState ClockTimerState { get; private set; }
+    public TimeSpan CurrentTimeSpan { get { return TimeSpan.FromSeconds(CurrentTime); } }
+    [ExposeProperty] public float CurrentTime { get { return m_currentTime; } set { m_currentTime = value; } }
+    [ExposeProperty] public float TickLength { get { return m_tickLength; } set { m_tickLength = value; } }
+    public float LastTick { get; set; }
+    public float NextTick { get { return LastTick + TickLength; } }
+
+    public NotifyClock()
+    {
+        TickLength = 1.0f;
+        ClockTimerState = TimeState.None;
+        CurrentTime = 0.0f;
+        LastTick = 0.0f;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Check if the timer is started
+        if (ClockTimerState != TimeState.Started) return;
+
+        // Update the Clock
+        CurrentTime += Time.deltaTime;
+
+        // Tick the Clock
+        if (CurrentTime >= NextTick)
+        {
+            LastTick = NextTick;
+            if (OnTick != null)
+                OnTick(this, new TimeEventArgs(CurrentTime));
+        }
+    }
+
+    public void StopClockTimer()
+    {
+        if (ClockTimerState == TimeState.Stopped) return;
+
+        ClockTimerState = TimeState.Stopped;
+        CurrentTime = 0.0f;
+        LastTick = 0.0f;
+        if (OnStop != null)
+            OnStop(this, new TimeEventArgs(CurrentTime, true));
+    }
+
+    public void StartClockTimer()
+    {
+        if (ClockTimerState == TimeState.None) return;
+        if (ClockTimerState == TimeState.Started) return;
+        if (ClockTimerState == TimeState.Completed) return;
+
+        ClockTimerState = TimeState.Started;
+        if (OnStart != null)
+            OnStart(this, new TimeEventArgs(CurrentTime, true));
+    }
+
+    public void PauseClockTimer()
+    {
+        if (ClockTimerState != TimeState.Started) return;
+
+        ClockTimerState = TimeState.Paused;
+        if (OnPause != null)
+            OnPause(this, new TimeEventArgs(CurrentTime, true));
+    }
+}

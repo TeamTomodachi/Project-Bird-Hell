@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 50996964553145488}
   - component: {fileID: 114934570011943148}
   - component: {fileID: 60649689897902422}
+  - component: {fileID: 114838239315462126}
+  - component: {fileID: 114721407306944768}
   m_Layer: 0
   m_Name: PlayerBird
   m_TagString: Player
@@ -127,6 +129,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114721407306944768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078589736936472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8039766ac16b6b4a898a635ccfb1945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentLives: 3
+--- !u!114 &114838239315462126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078589736936472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61f4f94f0146747bc14b4a8e21906d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StaminaIncreaseRate: 10
+  CurrentStamina: 100
 --- !u!114 &114934570011943148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,8 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e86640cb232bea43978ca7746e9ae02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player:
+  Info:
     ID: 1
+    BirdID: 0
+    EmbellishmentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &212090158040118236
 SpriteRenderer:
   m_ObjectHideFlags: 1
