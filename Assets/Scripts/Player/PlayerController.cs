@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
         m_stamina = GetComponent<PlayerStamina>();
         m_lives = GetComponent<PlayerLives>();
 
+        Vector3 startPos = Camera.main.pixelRect.center;
+        startPos.z = 10;
+        transform.position = Camera.main.ScreenToWorldPoint(startPos);
     }
 
     // Update is called once per frame
