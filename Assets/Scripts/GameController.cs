@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
     List<PlayerController> Players = new List<PlayerController>();
 
+    public CameraController CameraController;
     public NotifyClock Clock;
 
     // Use this for initialization
