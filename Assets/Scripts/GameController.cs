@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
         // Instantiate new players
         foreach (var pInfo in PlayerInfo.PlayersInGame)
         {
-            //PlayerController player; //= Instantiate<PlayerController>();
+            //PlayerController player = null; //= Instantiate<PlayerController>();
             //player.Info = pInfo;
             //Players.Add(player);
         }
