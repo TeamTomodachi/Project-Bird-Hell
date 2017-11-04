@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public bool CanDash { get { return (m_stamina.CurrentStamina - Stamina_DashCost) >= 0.0f; } }
     public bool CanSprint { get { return (m_stamina.CurrentStamina - Stamina_SprintCost) >= 0.0f; } }
     private bool m_isSprinting = false;
+
+    public bool FacingRight { get { return transform.localScale.x > 0; } }
 
     // Use this for initialization
     void Start()
@@ -79,7 +82,11 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Dash");
             m_stamina.DecreaseStamina(Stamina_DashCost);
-            movement *= Modifier_PlayerDash;
+
+            var vel = m_rigidbody2D.velocity;
+            if (FacingRight) { vel.x = Modifier_PlayerDash; }
+            else { vel.x = -Modifier_PlayerDash; }
+            m_rigidbody2D.velocity = vel;
         }
 
         //Debug.Log("Movement: " + movement);
@@ -87,8 +94,16 @@ public class PlayerController : MonoBehaviour
 
         // Flip the sprite to face the direction of movement 
         var scale = transform.localScale;
-        if (horizontalMovement > 0.001f) { scale.x = 1; } // Flip Right
-        else if (horizontalMovement <= -0.001f) { scale.x = -1; } // Flip Left
+        if ((horizontalMovement > 0.001f && scale.x < 0) || (horizontalMovement <= -0.001f && scale.x > 0))
+        {
+            scale.x *= -1;
+
+            // Cancel the Dash
+            // Nullify Velocity with a Physics Hack
+            var vel = m_rigidbody2D.velocity;
+            vel.x = 0.0f;
+            m_rigidbody2D.velocity = vel;
+        }
         transform.localScale = scale;
     }
 }
