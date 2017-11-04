@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212090158040118236}
   - component: {fileID: 95295090261846312}
   - component: {fileID: 50996964553145488}
-  - component: {fileID: 114934570011943148}
   - component: {fileID: 60649689897902422}
+  - component: {fileID: 114934570011943148}
   - component: {fileID: 114838239315462126}
   - component: {fileID: 114721407306944768}
   m_Layer: 0
@@ -165,6 +165,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e86640cb232bea43978ca7746e9ae02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed_PlayerJump: 6
+  Speed_PlayerMovement: 8
+  Modifier_PlayerSprint: 1.35
+  Modifier_PlayerDash: 15
+  Stamina_JumpCost: 5
+  Stamina_DashCost: 20
+  Stamina_SprintCost: 0.25
   Info:
     ID: 1
     BirdID: 0
