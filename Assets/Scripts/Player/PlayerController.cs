@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,15 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLives))]
 public class PlayerController : MonoBehaviour
 {
-    public const float PLAYER_JUMP_SPEED = 6.0f;
-    public const float PLAYER_MOVEMENT_SPEED = 8.0f;
-    public const float STAMINA_JUMP_COST = 10.0f;
+    public float Speed_PlayerJump = 6.0f;
+    public float Speed_PlayerMovement = 8.0f;
+
+    public float Modifier_PlayerSprint = 1.35f;
+    public float Modifier_PlayerDash = 15.0f;
+
+    public float Stamina_JumpCost = 5.0f;
+    public float Stamina_DashCost = 20.0f;
+    public float Stamina_SprintCost = 0.25f;
 
     [SerializeField]
     public PlayerInfo Info = new PlayerInfo();
@@ -20,7 +27,12 @@ public class PlayerController : MonoBehaviour
     PlayerStamina m_stamina;
     PlayerLives m_lives;
 
-    public bool CanJump { get { return (m_stamina.CurrentStamina - STAMINA_JUMP_COST) >= 0.0f; } }
+    public bool CanJump { get { return (m_stamina.CurrentStamina - Stamina_JumpCost) >= 0.0f; } }
+    public bool CanDash { get { return (m_stamina.CurrentStamina - Stamina_DashCost) >= 0.0f; } }
+    public bool CanSprint { get { return (m_stamina.CurrentStamina - Stamina_SprintCost) >= 0.0f; } }
+    private bool m_isSprinting = false;
+
+    public bool FacingRight { get { return transform.localScale.x > 0; } }
 
     // Use this for initialization
     void Start()
@@ -29,20 +41,24 @@ public class PlayerController : MonoBehaviour
         m_stamina = GetComponent<PlayerStamina>();
         m_lives = GetComponent<PlayerLives>();
 
+        Vector3 startPos = Camera.main.pixelRect.center;
+        startPos.z = 10;
+        transform.position = Camera.main.ScreenToWorldPoint(startPos);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Preform Jump
-        if (Input.GetButtonDown(Info.JoystickInputManagerPrefix + "Jump") &&
-            CanJump)
+        if (Input.GetButtonDown(Info.JoystickInputManagerPrefix + "Jump") && CanJump)
         {
             //Debug.Log("Jump");
-            m_stamina.DecreaseStamina(STAMINA_JUMP_COST);
+            m_stamina.DecreaseStamina(Stamina_JumpCost);
 
             var vel = m_rigidbody2D.velocity;
-            vel.y = PLAYER_JUMP_SPEED;
+            vel.y = Speed_PlayerJump;
+            if (m_isSprinting) { vel.y *= Modifier_PlayerSprint; }
+
             m_rigidbody2D.velocity = vel;
         }
     }
@@ -51,12 +67,43 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         float horizontalMovement = Input.GetAxis(Info.JoystickInputManagerPrefix + "Horizontal");
-        m_rigidbody2D.transform.position += (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * PLAYER_MOVEMENT_SPEED;
+        Vector3 movement = (new Vector3(horizontalMovement, 0.0f) * Time.fixedDeltaTime) * Speed_PlayerMovement;
+
+        if (Input.GetButton(Info.JoystickInputManagerPrefix + "Sprint") && CanSprint)
+        {
+            //Debug.Log("Sprint");
+            m_stamina.DecreaseStamina(Stamina_SprintCost);
+            movement *= Modifier_PlayerSprint;
+            m_isSprinting = true;
+        }
+        else { m_isSprinting = false; }
+
+        if (Input.GetButtonDown(Info.JoystickInputManagerPrefix + "Dash") && CanDash)
+        {
+            //Debug.Log("Dash");
+            m_stamina.DecreaseStamina(Stamina_DashCost);
+
+            var vel = m_rigidbody2D.velocity;
+            if (FacingRight) { vel.x = Modifier_PlayerDash; }
+            else { vel.x = -Modifier_PlayerDash; }
+            m_rigidbody2D.velocity = vel;
+        }
+
+        //Debug.Log("Movement: " + movement);
+        m_rigidbody2D.transform.position += movement;
 
         // Flip the sprite to face the direction of movement 
         var scale = transform.localScale;
-        if (horizontalMovement > 0.001f) { scale.x = 1; } // Flip Right
-        else if (horizontalMovement <= -0.001f) { scale.x = -1; } // Flip Left
+        if ((horizontalMovement > 0.001f && scale.x < 0) || (horizontalMovement <= -0.001f && scale.x > 0))
+        {
+            scale.x *= -1;
+
+            // Cancel the Dash
+            // Nullify Velocity with a Physics Hack
+            var vel = m_rigidbody2D.velocity;
+            vel.x = 0.0f;
+            m_rigidbody2D.velocity = vel;
+        }
         transform.localScale = scale;
     }
 }

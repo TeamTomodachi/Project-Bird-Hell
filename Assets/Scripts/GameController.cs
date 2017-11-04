@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
     List<PlayerController> Players = new List<PlayerController>();
 
+    public CameraController CameraController;
     public NotifyClock Clock;
 
     // Use this for initialization
@@ -22,7 +23,7 @@ public class GameController : MonoBehaviour
         // Instantiate new players
         foreach (var pInfo in PlayerInfo.PlayersInGame)
         {
-            //PlayerController player; //= Instantiate<PlayerController>();
+            //PlayerController player = null; //= Instantiate<PlayerController>();
             //player.Info = pInfo;
             //Players.Add(player);
         }
