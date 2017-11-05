@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198221157393102724}
   - component: {fileID: 199882726159533728}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PlayerLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1729957775
+  randomSeed: 255181128
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3586,7 +3586,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 600194558
+  randomSeed: -512750280
   InitialModule:
     serializedVersion: 3
     enabled: 1
