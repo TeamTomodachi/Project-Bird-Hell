@@ -67,8 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3ea12c3c116b842af548ecdac221f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CursorMovementSpeed: 550
   PlayerPanel: {fileID: 0}
   CursorImage: {fileID: 114825337816700914}
+  parentTransform: {fileID: 0}
 --- !u!222 &222364500506280966
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerPanelController : MonoBehaviour
+public class LobbyPlayerPanelController : MonoBehaviour, IPlayerPanel
 {
 	public PlayerInfo PlayerInfo = new PlayerInfo();
-	//public Color CursorColor;
+	public PlayerInfo PlayerInformation { get { return PlayerInfo; } }
 
 	private LobbyController Lobby;
 	private CursorController Cursor;
 	private GameObject StartToJoinPanel;
 	private GameObject JoinedGamePanel;
+	private Image m_image;
 
 	[HideInInspector]
 	public bool IsReady = false;
@@ -29,6 +31,10 @@ public class PlayerPanelController : MonoBehaviour
 		Lobby = GetComponentInParent<LobbyController>();
 		StartToJoinPanel = this.gameObject.transform.GetChild(0).gameObject;
 		JoinedGamePanel = this.gameObject.transform.GetChild(1).gameObject;
+
+		// Set the color on the Image
+		m_image = GetComponent<Image>();
+		m_image.color = PlayerInfo.EmbellishmentColor;
 	}
 
 	// Update is called once per frame
