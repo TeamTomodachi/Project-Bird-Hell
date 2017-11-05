@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class LevelController : MonoBehaviour
 {
-    public GameController Game;
+    public GameController Game { get; set; }
     public List<SpawnPoint> SpawnPoints = new List<SpawnPoint>();
 
     // Use for pre-start initialization

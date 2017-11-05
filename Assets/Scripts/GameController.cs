@@ -8,16 +8,19 @@ public class GameController : MonoBehaviour
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
     List<PlayerController> Players = new List<PlayerController>();
 
-    public LevelController Level;
+    public LevelController Level { get; set; }
     public CameraController CameraController;
     public NotifyClock Clock;
+
+    private void Awake()
+    {
+        // Grab the Level
+        Level = FindObjectOfType<LevelController>();
+    }
 
     // Use this for initialization
     void Start()
     {
-        // Grab the Level
-        Level = FindObjectOfType<LevelController>();
-
         // Setup the Game Clock
         Clock.StopClockTimer();
         Clock.OnTick += Clock_OnTick;
