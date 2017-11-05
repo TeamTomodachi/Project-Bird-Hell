@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour {
 
-	public float XSpeed;
-	public float YSpeed;
-	public float ZSpeed;
+	public Quaternion LastLocalRotation { get; set; }
+	public Quaternion LastRotation { get; set; }
+
+	public Vector3 Speed;
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +16,13 @@ public class Rotate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(new Vector3(1, 0, 0), XSpeed * Time.deltaTime, Space.World);
-		transform.Rotate(new Vector3(0, 1, 0), YSpeed * Time.deltaTime, Space.World);
-		transform.Rotate(new Vector3(0, 0, 1), ZSpeed * Time.deltaTime, Space.World);
+		// Save the old values for differences
+		LastLocalRotation = transform.localRotation;
+		LastRotation = transform.rotation;
+
+		// Preform Rotations
+		transform.Rotate(new Vector3(1, 0, 0), Speed.x * Time.deltaTime, Space.Self);
+		transform.Rotate(new Vector3(0, 1, 0), Speed.y * Time.deltaTime, Space.Self);
+		transform.Rotate(new Vector3(0, 0, 1), Speed.z * Time.deltaTime, Space.Self);
 	}
 }
