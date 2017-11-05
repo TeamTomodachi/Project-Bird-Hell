@@ -954,7 +954,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1881649659
+  randomSeed: -1726668737
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4640,7 +4640,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &1857624043
 Animator:
@@ -4819,7 +4819,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -222783683
+  randomSeed: 2119916816
   InitialModule:
     serializedVersion: 3
     enabled: 1
