@@ -68,9 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CursorMovementSpeed: 550
-  PlayerPanel: {fileID: 0}
   CursorImage: {fileID: 114825337816700914}
-  parentTransform: {fileID: 0}
 --- !u!222 &222364500506280966
 CanvasRenderer:
   m_ObjectHideFlags: 1
