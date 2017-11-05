@@ -4,11 +4,14 @@ using UnityEngine;
 
 public abstract class LevelController : MonoBehaviour
 {
+    public GameController Game;
     public List<SpawnPoint> SpawnPoints = new List<SpawnPoint>();
 
     // Use for pre-start initialization
     public virtual void Awake()
     {
+        Game = FindObjectOfType<GameController>();
+
         var spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (var s in spawnPoints)
         {
