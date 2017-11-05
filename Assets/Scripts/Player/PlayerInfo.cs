@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerInfo
 {
-    public static List<PlayerInfo> PlayersInGame = new List<PlayerInfo>();
-
     [SerializeField]
     public int ID;
     public string JoystickInputManagerPrefix { get { return "P" + ID + "_"; } }

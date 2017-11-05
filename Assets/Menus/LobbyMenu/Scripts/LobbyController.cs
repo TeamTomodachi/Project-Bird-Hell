@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
 {
+    public static List<PlayerInfo> PlayersInGame = new List<PlayerInfo>();
 
     // Player Controllers
     public List<LobbyPlayerPanelController> PlayerPanels = new List<LobbyPlayerPanelController>();
@@ -116,11 +117,11 @@ public class LobbyController : MonoBehaviour
         }
 
         // Save the Players to static cache for recreation ingame
-        PlayerInfo.PlayersInGame = new List<PlayerInfo>();
+        LobbyController.PlayersInGame = new List<PlayerInfo>();
         foreach (var panel in PlayerPanels)
         {
             if (panel.HasJoinedGame)
-                PlayerInfo.PlayersInGame.Add(panel.PlayerInfo);
+                LobbyController.PlayersInGame.Add(panel.PlayerInfo);
         }
 
         // Begin loading the map

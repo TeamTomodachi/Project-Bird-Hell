@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
         Clock.StartClockTimer();
 
         // Instantiate new players
-        foreach (var pInfo in PlayerInfo.PlayersInGame)
+        foreach (var pInfo in LobbyController.PlayersInGame)
         {
             //PlayerController player = null; //= Instantiate<PlayerController>();
             //player.Info = pInfo;
