@@ -8,7 +8,7 @@ public class LobbyController : MonoBehaviour
 {
 
     // Player Controllers
-    public List<PlayerPanelController> PlayerPanels = new List<PlayerPanelController>();
+    public List<LobbyPlayerPanelController> PlayerPanels = new List<LobbyPlayerPanelController>();
 
     // Countdown Timer
     public CountdownTimer StartTimer;
@@ -31,7 +31,7 @@ public class LobbyController : MonoBehaviour
     void Update()
     {
         // Gather all the joined players
-        List<PlayerPanelController> joinedPlayers = new List<PlayerPanelController>();
+        List<LobbyPlayerPanelController> joinedPlayers = new List<LobbyPlayerPanelController>();
         foreach (var panel in PlayerPanels)
         {
             if (panel.HasJoinedGame)
