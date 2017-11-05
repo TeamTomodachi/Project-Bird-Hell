@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
     // Unity Components
     Rigidbody2D m_rigidbody2D;
     // Custom Components
-    PlayerStamina m_stamina;
-    PlayerLives m_lives;
+    [HideInInspector]public PlayerStamina Stamina;
+    [HideInInspector]public PlayerLives Lives;
 
-    public bool CanJump { get { return (m_stamina.CurrentStamina - Stamina_JumpCost) >= 0.0f; } }
-    public bool CanDash { get { return (m_stamina.CurrentStamina - Stamina_DashCost) >= 0.0f; } }
-    public bool CanSprint { get { return (m_stamina.CurrentStamina - Stamina_SprintCost) >= 0.0f; } }
+    public bool CanJump { get { return (Stamina.CurrentStamina - Stamina_JumpCost) >= 0.0f; } }
+    public bool CanDash { get { return (Stamina.CurrentStamina - Stamina_DashCost) >= 0.0f; } }
+    public bool CanSprint { get { return (Stamina.CurrentStamina - Stamina_SprintCost) >= 0.0f; } }
     private bool m_isSprinting = false;
 
     public bool FacingRight { get { return transform.localScale.x > 0; } }
@@ -38,12 +38,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         m_rigidbody2D = GetComponent<Rigidbody2D>();
-        m_stamina = GetComponent<PlayerStamina>();
-        m_lives = GetComponent<PlayerLives>();
-
-        Vector3 startPos = Camera.main.pixelRect.center;
-        startPos.z = 10;
-        transform.position = Camera.main.ScreenToWorldPoint(startPos);
+        Stamina = GetComponent<PlayerStamina>();
+        Lives = GetComponent<PlayerLives>();
     }
 
     // Update is called once per frame
@@ -53,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown(Info.JoystickInputManagerPrefix + "Jump") && CanJump)
         {
             //Debug.Log("Jump");
-            m_stamina.DecreaseStamina(Stamina_JumpCost);
+            Stamina.DecreaseStamina(Stamina_JumpCost);
 
             var vel = m_rigidbody2D.velocity;
             vel.y = Speed_PlayerJump;
@@ -72,7 +68,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton(Info.JoystickInputManagerPrefix + "Sprint") && CanSprint)
         {
             //Debug.Log("Sprint");
-            m_stamina.DecreaseStamina(Stamina_SprintCost);
+            Stamina.DecreaseStamina(Stamina_SprintCost);
             movement *= Modifier_PlayerSprint;
             m_isSprinting = true;
         }
@@ -81,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown(Info.JoystickInputManagerPrefix + "Dash") && CanDash)
         {
             //Debug.Log("Dash");
-            m_stamina.DecreaseStamina(Stamina_DashCost);
+            Stamina.DecreaseStamina(Stamina_DashCost);
 
             var vel = m_rigidbody2D.velocity;
             if (FacingRight) { vel.x = Modifier_PlayerDash; }
