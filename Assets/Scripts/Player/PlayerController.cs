@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     // Unity Components
     Rigidbody2D m_rigidbody2D;
     // Custom Components
-    [HideInInspector]public PlayerStamina Stamina;
-    [HideInInspector]public PlayerLives Lives;
+    public PlayerStamina Stamina { get; set; }
+    public PlayerLives Lives { get; set; }
 
     public bool CanJump { get { return (Stamina.CurrentStamina - Stamina_JumpCost) >= 0.0f; } }
     public bool CanDash { get { return (Stamina.CurrentStamina - Stamina_DashCost) >= 0.0f; } }
