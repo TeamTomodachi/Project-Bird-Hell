@@ -7,6 +7,11 @@ public abstract class LevelController : MonoBehaviour
     public GameController Game { get; set; }
     public List<SpawnPoint> SpawnPoints { get; set; }
 
+    public LevelController()
+    {
+        SpawnPoints = new List<SpawnPoint>();
+    }
+
     // Use for pre-start initialization
     public virtual void Awake()
     {
