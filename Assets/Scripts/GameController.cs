@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,15 @@ public class GameController : MonoBehaviour
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
     List<PlayerController> Players = new List<PlayerController>();
 
+    public System.Random Randomizer { get; set; }
     public LevelController Level { get; set; }
     public CameraController CameraController;
     public NotifyClock Clock;
+
+    public GameController()
+    {
+        Randomizer = new System.Random();
+    }
 
     private void Awake()
     {

@@ -32,4 +32,25 @@ public abstract class LevelController : MonoBehaviour
 
     }
 
+    public virtual SpawnPoint GetRandomSpawn()
+    {
+        int index = Game.Randomizer.Next(SpawnPoints.Count);
+        return SpawnPoints[index];
+    }
+
+    public virtual IEnumerable<SpawnPoint> GetRandomSpawn(int number)
+    {
+        List<SpawnPoint> copySpawn = new List<SpawnPoint>(SpawnPoints);
+        List<SpawnPoint> tmp = new List<SpawnPoint>();
+
+        for (int i = 0; i < number + 1; i++)
+        {
+            int index = Game.Randomizer.Next(SpawnPoints.Count);
+            tmp.Add(copySpawn[index]);
+            copySpawn.RemoveAt(index);
+        }
+
+        return tmp;
+    }
+
 }
