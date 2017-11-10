@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public List<PlayerController> PlayerPrefabs = new List<PlayerController>();
-    List<PlayerController> Players = new List<PlayerController>();
+    public List<PlayerController> Players { get; set; }
 
     public System.Random Randomizer { get; set; }
     public LevelController Level { get; set; }
@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public GameController()
     {
         Randomizer = new System.Random();
+        Players = new List<PlayerController>();
     }
 
     private void Awake()
