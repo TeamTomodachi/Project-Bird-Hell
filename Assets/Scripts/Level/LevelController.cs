@@ -5,13 +5,14 @@ using UnityEngine;
 public abstract class LevelController : MonoBehaviour
 {
     public GameController Game { get; set; }
-    public List<SpawnPoint> SpawnPoints = new List<SpawnPoint>();
+    public List<SpawnPoint> SpawnPoints { get; set; }
 
     // Use for pre-start initialization
     public virtual void Awake()
     {
         Game = FindObjectOfType<GameController>();
 
+        SpawnPoints = new List<SpawnPoint>();
         var spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (var s in spawnPoints)
         {
