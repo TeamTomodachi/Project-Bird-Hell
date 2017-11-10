@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CursorController : MonoBehaviour {
 	public float CursorMovementSpeed = 550.0f;
 
-	public IPlayerPanel PlayerPanel;
+	public IPlayerPanel PlayerPanel { get; set; }
 	public Image CursorImage;
 
 	private RectTransform m_parentTransform;
@@ -18,6 +18,8 @@ public class CursorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (PlayerPanel == null) return;
+
 		float horizontalMovement = Input.GetAxis(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Horizontal");
 		float verticalMovement = Input.GetAxis(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Vertical");
 		var newPosition = transform.position + (new Vector3(horizontalMovement, verticalMovement) * Time.fixedDeltaTime) * CursorMovementSpeed;

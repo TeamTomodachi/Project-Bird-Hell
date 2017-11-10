@@ -4,14 +4,20 @@ using UnityEngine;
 
 public abstract class LevelController : MonoBehaviour
 {
-    public GameController Game;
-    public List<SpawnPoint> SpawnPoints = new List<SpawnPoint>();
+    public GameController Game { get; set; }
+    public List<SpawnPoint> SpawnPoints { get; set; }
+
+    public LevelController()
+    {
+        SpawnPoints = new List<SpawnPoint>();
+    }
 
     // Use for pre-start initialization
     public virtual void Awake()
     {
         Game = FindObjectOfType<GameController>();
 
+        SpawnPoints = new List<SpawnPoint>();
         var spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (var s in spawnPoints)
         {
@@ -30,6 +36,27 @@ public abstract class LevelController : MonoBehaviour
     public virtual void Update()
     {
 
+    }
+
+    public virtual SpawnPoint GetRandomSpawn()
+    {
+        int index = Game.Randomizer.Next(SpawnPoints.Count);
+        return SpawnPoints[index];
+    }
+
+    public virtual IList<SpawnPoint> GetRandomSpawn(int number)
+    {
+        List<SpawnPoint> copySpawn = new List<SpawnPoint>(SpawnPoints);
+        List<SpawnPoint> tmp = new List<SpawnPoint>();
+
+        for (int i = 0; i < number; i++)
+        {
+            int index = Game.Randomizer.Next(SpawnPoints.Count);
+            tmp.Add(copySpawn[index]);
+            copySpawn.RemoveAt(index);
+        }
+
+        return tmp;
     }
 
 }
