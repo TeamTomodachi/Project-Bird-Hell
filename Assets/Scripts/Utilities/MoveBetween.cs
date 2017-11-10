@@ -32,11 +32,11 @@ public class MoveBetween : MonoBehaviour
     void Update()
     {
         // Save the old values for differences
-        LastLocalPosition = transform.position;
-        LastPosition = transform.localPosition;
+        LastLocalPosition = transform.localPosition;
+        LastPosition = transform.position;
 
         // Grab the current Position
-        Vector3 newPosition = LastPosition;
+        Vector3 newPosition = LastLocalPosition;
 
         // Move the directions
         if (MovingRight) { newPosition.x += Speed.x * Time.deltaTime; }
@@ -65,5 +65,10 @@ public class MoveBetween : MonoBehaviour
 
         // Update the Position
         transform.localPosition = newPosition;
+    }
+
+    public void ResetPosition()
+    {
+        transform.localPosition = StartingPosition;
     }
 }
