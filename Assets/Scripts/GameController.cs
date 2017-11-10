@@ -37,11 +37,20 @@ public class GameController : MonoBehaviour
         Clock.StartClockTimer();
 
         // Instantiate new players
-        foreach (var pInfo in LobbyController.PlayersInGame)
+        var randomSpawns = Level.GetRandomSpawn(LobbyController.PlayersInGame.Count);
+        for (int i = 0; i < LobbyController.PlayersInGame.Count; i++)
         {
-            //PlayerController player = null; //= Instantiate<PlayerController>();
-            //player.Info = pInfo;
-            //Players.Add(player);
+            // Cache the current Player Info
+            var pInfo = LobbyController.PlayersInGame[i];
+
+            // Create the Player
+            CreatePlayer(PlayerPrefabs[0], pInfo, randomSpawns[i]);
+        }
+
+        // For debugging purposes... If the players count is 0, then we will create a player with the first bird prefab
+        if (Players.Count == 0)
+        {
+            CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
         }
     }
 
@@ -49,6 +58,21 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    private PlayerController CreatePlayer(PlayerController prefab, PlayerInfo pInfo, SpawnPoint spawn)
+    {
+        // Create the Player
+        PlayerController player = Instantiate<PlayerController>(prefab);
+        player.Info = pInfo;
+        player.transform.position = spawn.transform.position;
+
+        // Add the player to the Game
+        Players.Add(player);
+        CameraController.m_Targets.Add(player.transform);
+
+        // Return the player
+        return player;
     }
 
     private void Clock_OnStop(IClockTimer sender, TimeEventArgs e)

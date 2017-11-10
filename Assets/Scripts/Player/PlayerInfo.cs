@@ -17,8 +17,10 @@ public class PlayerInfo
     public Color EmbellishmentColor;
 
     public PlayerInfo() : this(1) { }
-    public PlayerInfo(int id)
+    public PlayerInfo(int playerID) : this(playerID, 0) { }
+    public PlayerInfo(int playerID, int birdID)
     {
-        ID = id;
+        ID = playerID;
+        BirdID = birdID;
     }
 }
