@@ -8,21 +8,28 @@ public class LobbyPlayerPanelController : MonoBehaviour, IPlayerPanel
 	public PlayerInfo PlayerInfo = new PlayerInfo();
 	public PlayerInfo PlayerInformation { get { return PlayerInfo; } }
 
-	private LobbyController Lobby;
-	private CursorController Cursor;
-	private GameObject StartToJoinPanel;
-	private GameObject JoinedGamePanel;
-	private Image m_image;
+	private LobbyController Lobby { get; set; }
+	private LobbyLevelSelectPanelController VoteCast { get; set; }
 
-	[HideInInspector]
-	public bool IsReady = false;
+	// Self-References
+	private CursorController Cursor { get; set; }
+	private GameObject StartToJoinPanel { get; set; }
+	private GameObject JoinedGamePanel { get; set; }
+	private Image m_image { get; set; }
 
+
+	public bool IsReady { get; set; }
 	public bool HasJoinedGame
 	{
 		get
 		{
 			return JoinedGamePanel.activeSelf;
 		}
+	}
+
+	public LobbyPlayerPanelController()
+	{
+		IsReady = false;
 	}
 
 	// Use this for initialization
@@ -91,12 +98,43 @@ public class LobbyPlayerPanelController : MonoBehaviour, IPlayerPanel
 		Cursor.transform.SetParent(Lobby.transform);
 		Cursor.PlayerPanel = this;
 		Cursor.CursorImage.color = PlayerInfo.EmbellishmentColor;
+		Cursor.OnClick += Cursor_OnClick;
 	}
+
+	private void Cursor_OnClick(object sender, CursorEventArgs e)
+	{
+		//Debug.Log("Casting Vote at position" + e.Position);
+		foreach (var level in Lobby.LevelSelectionPanels)
+		{
+			if (level.ContainsPosition(e.Position))
+			{
+				Debug.Log("Vote Cast for: " + level.Level.Name);
+
+				// If we have already cast a vote, get rid of it
+				if (VoteCast != null)
+				{
+					VoteCast.TotalVotes--;
+				}
+
+				// Cast the vote for the new item
+				VoteCast = level;
+				VoteCast.TotalVotes++;
+				break;
+			}
+		}
+	}
+
 	public void LeaveGame()
 	{
 		if (!HasJoinedGame) return;
 		StartToJoinPanel.SetActive(true);
 		JoinedGamePanel.SetActive(false);
+
+		// If we have already cast a vote, get rid of it
+		if (VoteCast != null)
+		{
+			VoteCast.TotalVotes--;
+		}
 
 		// Unready
 		IsReady = false;
