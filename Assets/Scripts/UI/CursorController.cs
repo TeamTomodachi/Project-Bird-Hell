@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ public class CursorController : MonoBehaviour {
 
 	public IPlayerPanel PlayerPanel { get; set; }
 	public Image CursorImage;
+
+	public event CursorEventHandler OnClick;
 
 	private RectTransform m_parentTransform;
 
@@ -41,5 +44,13 @@ public class CursorController : MonoBehaviour {
 			newPosition.y = properYMin;
 
 		transform.position = newPosition;
+
+		// Fire the event for selection
+		if (Input.GetButtonDown(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Jump"))
+		{
+			//Debug.Log("Select");
+			if (OnClick != null)
+				OnClick(this, new CursorEventArgs(transform.position));
+		}
 	}
 }

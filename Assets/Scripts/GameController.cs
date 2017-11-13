@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 
     public System.Random Randomizer { get; set; }
     public LevelController Level { get; set; }
+    public LevelNavigationParameter NavigationParameter { get; set; }
     public CameraController CameraController;
     public NotifyClock Clock;
 
@@ -22,6 +23,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        // Grab the Navigation Parameter
+        NavigationParameter = NavigationManager.Instance.Parameter as LevelNavigationParameter;
+
         // Grab the Level
         Level = FindObjectOfType<LevelController>();
     }
@@ -37,11 +41,11 @@ public class GameController : MonoBehaviour
         Clock.StartClockTimer();
 
         // Instantiate new players
-        var randomSpawns = Level.GetRandomSpawn(LobbyController.PlayersInGame.Count);
-        for (int i = 0; i < LobbyController.PlayersInGame.Count; i++)
+        var randomSpawns = Level.GetRandomSpawn(NavigationParameter.PlayersInGame.Count);
+        for (int i = 0; i < NavigationParameter.PlayersInGame.Count; i++)
         {
             // Cache the current Player Info
-            var pInfo = LobbyController.PlayersInGame[i];
+            var pInfo = NavigationParameter.PlayersInGame[i];
 
             // Create the Player
             CreatePlayer(PlayerPrefabs[0], pInfo, randomSpawns[i]);
