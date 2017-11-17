@@ -6,26 +6,32 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviour
 {
-    public static List<PlayerInfo> PlayersInGame = new List<PlayerInfo>();
+    public int MinimumPlayersToStart = 2;
 
     // Player Controllers
     public List<LobbyPlayerPanelController> PlayerPanels = new List<LobbyPlayerPanelController>();
+    public List<LobbyLevelSelectPanelController> LevelSelectionPanels = new List<LobbyLevelSelectPanelController>();
 
     // Countdown Timer
     public CountdownTimer StartTimer;
     public Text TimerUIText;
 
-    // Assets
+    // Prefabs
     public CursorController CursorPrefab;
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         StartTimer.StopClockTimer();
         StartTimer.OnTick += StartTimer_Tick;
         StartTimer.OnStart += StartTimer_OnStart;
         StartTimer.OnStop += StartTimer_OnStop;
         StartTimer.OnCompleted += StartTimer_Completed;
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -39,11 +45,10 @@ public class LobbyController : MonoBehaviour
                 joinedPlayers.Add(panel);
         }
 
-        //Debug.Log("Total Joined Players: " + joinedPlayers.Count);
-
         // Require a minimum of two players to start a game
+        //Debug.Log("Total Joined Players: " + joinedPlayers.Count);
         bool readyToStart = true;
-        if (joinedPlayers.Count >= 1)
+        if (joinedPlayers.Count >= MinimumPlayersToStart)
         {
             // Check to make sure that all of the players are ready
             foreach (var panel in joinedPlayers)
@@ -116,15 +121,34 @@ public class LobbyController : MonoBehaviour
             TimerUIText.text = "";
         }
 
+        // Create the Navigation Parameter
+        LevelNavigationParameter navigationParameter = new LevelNavigationParameter();
+
         // Save the Players to static cache for recreation ingame
-        LobbyController.PlayersInGame = new List<PlayerInfo>();
         foreach (var panel in PlayerPanels)
         {
             if (panel.HasJoinedGame)
-                LobbyController.PlayersInGame.Add(panel.PlayerInfo);
+                navigationParameter.PlayersInGame.Add(panel.PlayerInfo);
         }
 
+        // Get the level vote winner
+        LobbyLevelSelectPanelController levelMostVotes = LevelSelectionPanels[0];
+        foreach (var level in LevelSelectionPanels)
+        {
+            if (level.TotalVotes > levelMostVotes.TotalVotes)
+                levelMostVotes = level;
+        }
+
+        // If Random was selected, set a random one
+        if (string.IsNullOrEmpty(levelMostVotes.Level.SceneName) || levelMostVotes.Level.Name == "Random") {
+            var index = Random.Range(1, LevelSelectionPanels.Count);
+            levelMostVotes = LevelSelectionPanels[index];
+        }
+
+        // Set the Selected Level
+        navigationParameter.SelectedLevel = levelMostVotes.Level;
+
         // Begin loading the map
-        SceneManager.LoadScene("Test");
+        NavigationManager.Instance.Navigate(navigationParameter.SelectedLevel.SceneName, navigationParameter);
     }
 }
