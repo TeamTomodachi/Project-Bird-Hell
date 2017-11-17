@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     {
         // Grab the Navigation Parameter
         NavigationParameter = NavigationManager.Instance.Parameter as LevelNavigationParameter;
+        if (NavigationParameter == null) NavigationParameter = new LevelNavigationParameter();
 
         // Grab the Level
         Level = FindObjectOfType<LevelController>();
