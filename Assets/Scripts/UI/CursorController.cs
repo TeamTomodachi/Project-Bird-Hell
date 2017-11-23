@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,8 +7,10 @@ using UnityEngine.UI;
 public class CursorController : MonoBehaviour {
 	public float CursorMovementSpeed = 550.0f;
 
-	public IPlayerPanel PlayerPanel;
+	public IPlayerPanel PlayerPanel { get; set; }
 	public Image CursorImage;
+
+	public event CursorEventHandler OnClick;
 
 	private RectTransform m_parentTransform;
 
@@ -18,6 +21,8 @@ public class CursorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (PlayerPanel == null) return;
+
 		float horizontalMovement = Input.GetAxis(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Horizontal");
 		float verticalMovement = Input.GetAxis(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Vertical");
 		var newPosition = transform.position + (new Vector3(horizontalMovement, verticalMovement) * Time.fixedDeltaTime) * CursorMovementSpeed;
@@ -39,5 +44,13 @@ public class CursorController : MonoBehaviour {
 			newPosition.y = properYMin;
 
 		transform.position = newPosition;
+
+		// Fire the event for selection
+		if (Input.GetButtonDown(PlayerPanel.PlayerInformation.JoystickInputManagerPrefix + "Jump"))
+		{
+			//Debug.Log("Select");
+			if (OnClick != null)
+				OnClick(this, new CursorEventArgs(transform.position));
+		}
 	}
 }

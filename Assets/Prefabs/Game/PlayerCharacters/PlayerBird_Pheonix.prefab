@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 199801080526422606}
   - component: {fileID: 198069354308295046}
   m_Layer: 0
-  m_Name: PlayerBird
+  m_Name: PlayerBird_Pheonix
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
