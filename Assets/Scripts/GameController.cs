@@ -58,9 +58,9 @@ public class GameController : MonoBehaviour
         if (Players.Count == 0)
         {
             CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
-            CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
-            CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
-            CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
         }
     }
 
