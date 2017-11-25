@@ -133,4 +133,72 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Skip the call if the gameObjects are the same or if the gameObject isn't a Player
+        if (other.gameObject == this.gameObject) return;
+        if (other.tag != "Player") return;
+
+        
+
+        // Skip the call if we or the other player isn't alive
+        if (!Lives.IsAlive || !Lives.HasLives) return;
+        PlayerController collidedPlayer = other.gameObject.GetComponent<PlayerController>();
+        if (!collidedPlayer.Lives.IsAlive || !collidedPlayer.Lives.HasLives) return;
+
+        Debug.Log("Player " + collidedPlayer.Info.ID + " Made an Attack");
+
+        // Flag that they are dead and modify Health State
+        collidedPlayer.Lives.IsAlive = false;
+        collidedPlayer.Lives.DecreaseLife(1);
+        Lives.IncreaseLife(1);
+
+        // Disable all the players scripts but this one
+        //var colliderPlayerScripts = new List<MonoBehaviour>();
+        //colliderPlayerScripts.AddRange(collidedPlayer.gameObject.GetComponents<MonoBehaviour>());
+        //colliderPlayerScripts.AddRange(collidedPlayer.gameObject.GetComponentsInChildren<MonoBehaviour>());
+        //foreach (var script in colliderPlayerScripts)
+        //{
+        //    if (script is PlayerController) return;
+        //    script.enabled = false;
+        //}
+        //var children = collidedPlayer.GetComponentsInChildren<Transform>();
+        //foreach (var child in children)
+        //{
+        //    child.gameObject.SetActive(false);
+        //}
+
+        // Enable and run the timer
+        collidedPlayer.RespawnTimer.enabled = true;
+        collidedPlayer.RespawnTimer.StartClockTimer();
+    }
+
+    private void RespawnTimer_OnCompleted(IClockTimer sender, TimeEventArgs e)
+    {
+        Debug.Log("Respawn Timer completed");
+        // Reset the clock
+        RespawnTimer.StopClockTimer();
+
+        // If the player is completely dead, dont respawn
+        if (!Lives.HasLives) return;
+
+        // Otherwise, Reset stats and Respawn the Player
+        m_rigidbody2D.velocity = Vector3.zero;
+        var spawnPoint = Game.Level.GetRandomSpawn();
+        transform.position = spawnPoint.transform.position;
+
+        Stamina.SetMaxStamina();
+
+        // Enable the players scripts
+        //var colliderPlayerScripts = new List<MonoBehaviour>();
+        //colliderPlayerScripts.AddRange(gameObject.GetComponents<MonoBehaviour>());
+        //colliderPlayerScripts.AddRange(gameObject.GetComponentsInChildren<MonoBehaviour>());
+        //foreach (var script in colliderPlayerScripts)
+        //{
+        //    script.enabled = true;
+        //}
+
+        // Show the Player
+        Lives.IsAlive = true;
+    }
 }
