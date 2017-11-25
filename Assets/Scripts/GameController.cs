@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour
     {
         // Create the Player
         PlayerController player = Instantiate<PlayerController>(prefab);
+        player.Game = this;
         player.Info = pInfo;
         player.transform.position = spawn.transform.position;
 
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
         // Create player's UI
         PlayerUIPanelController playerUI = Instantiate<PlayerUIPanelController>(PlayerUIPanelPrefab);
         playerUI.Player = player;
-        playerUI.transform.parent = PlayerUIPanel;
+        playerUI.transform.SetParent(PlayerUIPanel);
         // playerUI.heroImg = // Future assignments
 
         // Return the player
