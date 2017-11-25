@@ -40,11 +40,13 @@ GameObject:
   - component: {fileID: 95295090261846312}
   - component: {fileID: 50996964553145488}
   - component: {fileID: 60649689897902422}
+  - component: {fileID: 60053178506005312}
+  - component: {fileID: 198069354308295046}
   - component: {fileID: 114934570011943148}
+  - component: {fileID: 199801080526422606}
   - component: {fileID: 114838239315462126}
   - component: {fileID: 114721407306944768}
-  - component: {fileID: 199801080526422606}
-  - component: {fileID: 198069354308295046}
+  - component: {fileID: 114822812446500632}
   m_Layer: 0
   m_Name: PlayerBird_Pheonix
   m_TagString: Player
@@ -72,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078589736936472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.24, y: 2.08, z: -3.9507866}
+  m_LocalPosition: {x: -1.1994112, y: 2.2751179, z: -3.9507866}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4138193822296268}
@@ -99,6 +101,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!60 &60053178506005312
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078589736936472}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.31}
+    newSize: {x: 0.32, y: 0.31}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.12586612, y: 0.026925802}
+      - {x: 0.09234464, y: 0.030640006}
+      - {x: 0.068293214, y: 0.019874454}
+      - {x: 0.071410716, y: -0.025622606}
+      - {x: 0.14333934, y: -0.028420568}
+      - {x: 0.16520342, y: -0.009255409}
 --- !u!60 &60649689897902422
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -174,6 +206,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentLives: 3
+  IsAlive: 1
+--- !u!114 &114822812446500632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078589736936472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227d47686a9065c4c836786dae03adca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_currentTime: 3
+  m_tickLength: 1
+  StartTime: 3
 --- !u!114 &114838239315462126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -198,17 +245,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e86640cb232bea43978ca7746e9ae02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed_PlayerJump: 6
-  Speed_PlayerMovement: 8
-  Modifier_PlayerSprint: 1.35
-  Modifier_PlayerDash: 15
-  Stamina_JumpCost: 5
-  Stamina_DashCost: 20
-  Stamina_SprintCost: 0.25
   Info:
     ID: 1
+    InputType: 0
     BirdID: 0
     EmbellishmentColor: {r: 0, g: 0, b: 0, a: 0}
+  Speeds:
+    PlayerJump: 6
+    PlayerMovement: 8
+  Modifiers:
+    PlayerSprint: 1.35
+    PlayerDash: 15
+  StaminaCosts:
+    JumpCost: 5
+    DashCost: 20
+    SprintCost: 0.25
 --- !u!198 &198069354308295046
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -269,7 +320,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 255181128
+  randomSeed: 1835704762
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3586,7 +3637,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -512750280
+  randomSeed: -1547818035
   InitialModule:
     serializedVersion: 3
     enabled: 1

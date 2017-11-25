@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour
     {
         // Create the Player
         PlayerController player = Instantiate<PlayerController>(prefab);
+        player.Game = this;
         player.Info = pInfo;
         player.transform.position = spawn.transform.position;
 
