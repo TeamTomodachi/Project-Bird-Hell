@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     public LevelNavigationParameter NavigationParameter { get; set; }
     public CameraController CameraController;
     public NotifyClock Clock;
+    public PlayerUIPanelController PlayerUIPanelPrefab;
+    public RectTransform PlayerUIPanel;
 
     public GameController()
     {
@@ -25,6 +27,7 @@ public class GameController : MonoBehaviour
     {
         // Grab the Navigation Parameter
         NavigationParameter = NavigationManager.Instance.Parameter as LevelNavigationParameter;
+        if (NavigationParameter == null) NavigationParameter = new LevelNavigationParameter();
 
         // Grab the Level
         Level = FindObjectOfType<LevelController>();
@@ -55,6 +58,9 @@ public class GameController : MonoBehaviour
         if (Players.Count == 0)
         {
             CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
+            //CreatePlayer(PlayerPrefabs[0], new PlayerInfo(), Level.GetRandomSpawn());
         }
     }
 
@@ -68,12 +74,19 @@ public class GameController : MonoBehaviour
     {
         // Create the Player
         PlayerController player = Instantiate<PlayerController>(prefab);
+        player.Game = this;
         player.Info = pInfo;
         player.transform.position = spawn.transform.position;
 
         // Add the player to the Game
         Players.Add(player);
         CameraController.m_Targets.Add(player.transform);
+
+        // Create player's UI
+        PlayerUIPanelController playerUI = Instantiate<PlayerUIPanelController>(PlayerUIPanelPrefab);
+        playerUI.Player = player;
+        playerUI.transform.SetParent(PlayerUIPanel);
+        // playerUI.heroImg = // Future assignments
 
         // Return the player
         return player;

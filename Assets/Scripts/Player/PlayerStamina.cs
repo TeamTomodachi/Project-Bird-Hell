@@ -17,6 +17,11 @@ public class PlayerStamina : MonoBehaviour {
         CurrentStamina = Mathf.Max(CurrentStamina - amount, MIN_STAMINA);
     }
 
+    public void SetMaxStamina()
+    {
+        CurrentStamina = MAX_STAMINA;
+    }
+
     bool OnFloor = false;
 
     private void Update()
