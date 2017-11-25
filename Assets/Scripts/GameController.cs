@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
         // Create player's UI
         PlayerUIPanelController playerUI = Instantiate<PlayerUIPanelController>(PlayerUIPanelPrefab);
         playerUI.Player = player;
-        playerUI.transform.parent = PlayerUIPanel;
+        playerUI.transform.SetParent(PlayerUIPanel);
         // playerUI.heroImg = // Future assignments
 
         // Return the player
