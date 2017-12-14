@@ -16,12 +16,18 @@ public class CameraController : MonoBehaviour
     private Vector3 m_DesiredPosition;              // The position the camera is moving towards.
 
     public Camera MainCamera { get { return m_Camera; } }
+    private Matrix4x4 m_originalProjectionMatrix;   // The original Projection Matrix for use in camera flipping
 
     private void Awake()
     {
         m_Camera = GetComponentInChildren<Camera>();
     }
 
+
+    private void Start()
+    {
+        m_originalProjectionMatrix = m_Camera.projectionMatrix;
+    }
 
     private void FixedUpdate()
     {
@@ -130,4 +136,11 @@ public class CameraController : MonoBehaviour
         // Find and set the required size of the camera.
         m_Camera.orthographicSize = FindRequiredSize();
     }
+
+    public void ResetProjectionMatrix() { m_Camera.projectionMatrix = m_originalProjectionMatrix; }
+    public void SetProjectionMatrix(Matrix4x4 newProjectionMatrix) { m_Camera.projectionMatrix = newProjectionMatrix; }
+    public void FlipProjectionMatrix(Vector3 scale) { m_Camera.projectionMatrix = m_Camera.projectionMatrix * Matrix4x4.Scale(scale); }
+    public void FlipProjectionMatrixHorizontal() { FlipProjectionMatrix(new Vector3(-1, 1, 1)); }
+    public void FlipProjectionMatrixVertical() { FlipProjectionMatrix(new Vector3(1, -1, 1)); }
+    public void FlipProjectionMatrixDepth() { FlipProjectionMatrix(new Vector3(1, 1, -1)); }
 }

@@ -7,7 +7,8 @@ public class PlayerLives : MonoBehaviour
     public const int STARTING_LIVES = 3;
     public int CurrentLives = STARTING_LIVES;
 
-    public bool IsAlive { get { return CurrentLives > 0; } }
+    public bool HasLives { get { return CurrentLives > 0; } }
+    public bool IsAlive = true;
 
     public void IncreaseLife(int amount)
     {

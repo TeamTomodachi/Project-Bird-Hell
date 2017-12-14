@@ -8,6 +8,8 @@ public class PlayerStamina : MonoBehaviour {
     public float StaminaIncreaseRate = 10.0f;
     public float CurrentStamina = MAX_STAMINA;
 
+    public float StaminaPercentage { get { return CurrentStamina / MAX_STAMINA; } }
+
     public void IncreaseStamina(float amount)
     {
         CurrentStamina = Mathf.Min(CurrentStamina + amount, MAX_STAMINA);
@@ -15,6 +17,11 @@ public class PlayerStamina : MonoBehaviour {
     public void DecreaseStamina(float amount)
     {
         CurrentStamina = Mathf.Max(CurrentStamina - amount, MIN_STAMINA);
+    }
+
+    public void SetMaxStamina()
+    {
+        CurrentStamina = MAX_STAMINA;
     }
 
     bool OnFloor = false;
